@@ -1,0 +1,165 @@
+/* ============================
+   CSS Reset
+   ============================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Luxury scrollbar */
+::-webkit-scrollbar            { width: 4px; }
+::-webkit-scrollbar-track      { background: var(--color-bg); }
+::-webkit-scrollbar-thumb      { background: var(--color-primary-light); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover{ background: var(--color-primary); }
+
+/* Film grain overlay — applied via App.jsx */
+@keyframes grainShift {
+  0%   { transform: translate(0,   0);   }
+  20%  { transform: translate(-3px, 4px); }
+  40%  { transform: translate(4px, -3px); }
+  60%  { transform: translate(-4px, 2px); }
+  80%  { transform: translate(2px, -4px); }
+  100% { transform: translate(0,   0);   }
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* ============================
+   CSS Variables (Design Tokens)
+   ============================ */
+:root {
+  --color-primary: #7D4E57;
+  --color-primary-light: #C4A0A8;
+  --color-bg: #FAF8F5;
+  --color-bg-section: #F2EDE8;
+  --color-text: #2C2C2C;
+  --color-text-light: #7A7A7A;
+  --color-white: #FFFFFF;
+
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+
+  --border-radius: 4px;
+  --transition: 0.3s ease;
+
+  --container-max: 1200px;
+  --container-padding: 0 24px;
+
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 32px;
+  --spacing-lg: 64px;
+  --spacing-xl: 96px;
+}
+
+/* ============================
+   Base Typography
+   ============================ */
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+h4 { font-size: 1.25rem; }
+
+p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+/* ============================
+   Utility Classes
+   ============================ */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--container-padding);
+}
+
+.section {
+  padding: var(--spacing-lg) 0;
+}
+
+.section--alt {
+  background-color: var(--color-bg-section);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--color-text-light);
+}
+
+.italic {
+  font-style: italic;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-light);
+  max-width: 560px;
+}

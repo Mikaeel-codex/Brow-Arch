@@ -1,0 +1,63 @@
+/* Hide on touch / coarse pointer devices */
+@media (pointer: coarse) {
+  .dot, .ring { display: none; }
+}
+
+.dot {
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  pointer-events: none;
+  z-index: 10000;
+  will-change: transform;
+  mix-blend-mode: difference;
+  transition: width .2s, height .2s, top .2s, left .2s;
+}
+
+.dotHover {
+  top: -3px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+}
+
+.ring {
+  position: fixed;
+  top: -24px;
+  left: -24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(125, 78, 87, 0.55);
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  transition:
+    width  .3s cubic-bezier(.22,1,.36,1),
+    height .3s cubic-bezier(.22,1,.36,1),
+    top    .3s cubic-bezier(.22,1,.36,1),
+    left   .3s cubic-bezier(.22,1,.36,1),
+    background-color .3s,
+    border-color .3s;
+}
+
+.hover {
+  top: -36px;
+  left: -36px;
+  width: 72px;
+  height: 72px;
+  border-color: var(--color-primary);
+  background: rgba(125, 78, 87, 0.07);
+}
+
+.click {
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  background: rgba(125, 78, 87, 0.18);
+}

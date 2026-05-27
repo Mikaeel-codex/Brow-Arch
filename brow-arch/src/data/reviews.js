@@ -1,0 +1,42 @@
+export const reviews = [
+  {
+    id: 1,
+    name: 'Nomvula Dlamini',
+    rating: 5,
+    date: 'March 2024',
+    text: 'Absolutely incredible experience from start to finish. My skin has never looked this good — the hydrating facial left me glowing for weeks. The studio is immaculate and the atmosphere is so calm and welcoming. I won\'t go anywhere else!',
+    treatment: 'Hydrating Facial',
+  },
+  {
+    id: 2,
+    name: 'Priya Naidoo',
+    rating: 5,
+    date: 'April 2024',
+    text: 'I had my lash lift and tint done here and I\'m obsessed with the results. Professional, hygienic, and the results lasted way longer than expected. Highly recommend to anyone looking for quality beauty treatments in Sandton.',
+    treatment: 'Lash Lift & Tint',
+  },
+  {
+    id: 3,
+    name: 'Lerato Molefe',
+    rating: 5,
+    date: 'January 2024',
+    text: 'Best brow shaping I\'ve ever had. She really took the time to understand my face shape and what I was going for. My brows look completely transformed. Booking for my chemical peel next month!',
+    treatment: 'Brow Shape & Tint',
+  },
+  {
+    id: 4,
+    name: 'Candice van der Merwe',
+    rating: 5,
+    date: 'February 2024',
+    text: 'I came in for dermaplaning and left feeling like a completely different person. The treatment was explained thoroughly, very comfortable, and my skin has been glowing ever since. The studio is gorgeous — very boutique and premium feel.',
+    treatment: 'Dermaplaning',
+  },
+  {
+    id: 5,
+    name: 'Thandi Khumalo',
+    rating: 5,
+    date: 'May 2024',
+    text: 'My go-to for all things skin. I\'ve been coming here for 6 months now and every single visit is exceptional. The chemical peel series I did has genuinely transformed my complexion. Worth every rand.',
+    treatment: 'Advanced Chemical Peel',
+  },
+];
