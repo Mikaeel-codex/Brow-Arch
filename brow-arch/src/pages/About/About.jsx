@@ -1,213 +1,45 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import Button from '../../components/Button/Button';
-import { useBooking } from '../../context/BookingContext';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './About.module.css';
 
-const CHAPTERS = [
+const PROCESS = [
   {
     num: '01',
-    tag:   'The Space',
-    title: 'A Sanctuary\nBuilt for You',
-    body:  'Nestled in the heart of Illovo, Sandton, Brow Arch is more than a beauty studio — it\'s a private retreat. From the moment you step inside, the world slows down. Every detail has been considered: soft lighting, curated scents, and a calm that lets you breathe out before we even begin.',
-    img:   'https://images.unsplash.com/photo-1643684391140-c5056cfd3436?auto=format&fit=crop&w=1000&q=80',
-    imgAlt:'Brow Arch studio interior',
-    bg:    'var(--color-bg)',
+    title: 'Consultation',
+    text: 'Every appointment begins with a personalised consultation. We talk about your skin, your goals, and your lifestyle — before a single product is opened.',
   },
   {
     num: '02',
-    tag:   'The Expert',
-    title: 'Skill You Can\nSee and Feel',
-    body:  'Brow Arch was founded on the belief that great results come from great technique — not trend-chasing. Every treatment is delivered with precision, education, and genuine care. Years of professional training, combined with a passion for skin health, means your therapist brings expertise that shows in every outcome.',
-    img:   'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1000&q=80',
-    imgAlt:'Beauty therapist at work',
-    bg:    'var(--color-bg-section)',
+    title: 'Treatment',
+    text: 'Using only professional-grade products, every treatment is crafted specifically for you. No templates. No rushing. Just focused, expert hands.',
   },
   {
     num: '03',
-    tag:   'The Craft',
-    title: 'Premium From\nStart to Finish',
-    body:  'We believe your skin deserves only the best — which is why we use exclusively professional-grade, results-focused products. No compromises. No cutting corners. Every formula is chosen for its efficacy and safety, ensuring every treatment delivers exactly what it promises.',
-    img:   'https://images.unsplash.com/photo-1580870069867-74c57ee1bb07?auto=format&fit=crop&w=1000&q=80',
-    imgAlt:'Luxury skincare products',
-    bg:    'var(--color-bg)',
-  },
-  {
-    num: '04',
-    tag:   'The Promise',
-    title: 'Real Results.\nEvery Time.',
-    body:  'We don\'t measure success by appointment duration — we measure it by how you feel when you leave, and what you see in the mirror one week later. That\'s the Brow Arch promise: honest advice, transparent results, and treatments that genuinely transform.',
-    img:   'https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=1000&q=80',
-    imgAlt:'Close-up beauty treatment result',
-    bg:    'var(--color-bg-section)',
+    title: 'Aftercare',
+    text: "We don't say goodbye at the door. You leave with tailored aftercare advice and a clear plan to maintain and build on your results at home.",
   },
 ];
 
-/* ── Horizontal scroll chapters (desktop only) ── */
-function HorizontalStory({ openBooking }) {
-  const wrapperRef  = useRef(null);
-  const trackRef    = useRef(null);
-  const chapRefs    = useRef([]);
-  const [active, setActive] = useState(0);
-  const posRef = useRef({ cur: 0, target: 0 });
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const track   = trackRef.current;
-    if (!wrapper || !track) return;
-
-    const pos = posRef.current;
-    let raf;
-    let lastActive = -1;
-
-    const lerp = (a, b, t) => a + (b - a) * t;
-
-    const onScroll = () => {
-      const rect    = wrapper.getBoundingClientRect();
-      const maxScroll = rect.height - window.innerHeight;
-      const progress  = maxScroll > 0 ? Math.max(0, Math.min(1, -rect.top / maxScroll)) : 0;
-      pos.target = -progress * (CHAPTERS.length - 1) * window.innerWidth;
-    };
-
-    const loop = () => {
-      pos.cur = lerp(pos.cur, pos.target, 0.072);
-      track.style.transform = `translateX(${pos.cur}px)`;
-
-      // Reveal chapters as they slide into view
-      const newActive = Math.round(Math.abs(pos.cur) / window.innerWidth);
-      if (newActive !== lastActive) {
-        setActive(newActive);
-        lastActive = newActive;
-        // Mark all chapters within range as revealed
-        CHAPTERS.forEach((_, i) => {
-          const dist = Math.abs(pos.cur + i * window.innerWidth);
-          if (dist < window.innerWidth * 0.65 && chapRefs.current[i]) {
-            chapRefs.current[i].classList.add(styles.chapRevealed);
-          }
-        });
-      }
-      raf = requestAnimationFrame(loop);
-    };
-
-    // Reveal first chapter immediately
-    setTimeout(() => {
-      chapRefs.current[0]?.classList.add(styles.chapRevealed);
-    }, 200);
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    raf = requestAnimationFrame(loop);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return (
-    /* The tall wrapper provides the scroll space */
-    <div ref={wrapperRef} className={styles.hWrapper}>
-      <div className={styles.hSticky}>
-
-        {/* Scrolling track */}
-        <div ref={trackRef} className={styles.hTrack}>
-          {CHAPTERS.map((ch, i) => (
-            <div
-              key={ch.num}
-              ref={el => { chapRefs.current[i] = el; }}
-              className={styles.hChap}
-              style={{ background: ch.bg }}
-            >
-              {/* Big decorative number */}
-              <span className={styles.hChapNum} aria-hidden="true">{ch.num}</span>
-
-              {/* Image side */}
-              <div className={`${styles.hChapImg} ${i % 2 === 1 ? styles.hChapImgRight : ''}`}>
-                <div className={styles.hChapImgInner}>
-                  <img src={ch.img} alt={ch.imgAlt} loading={i === 0 ? 'eager' : 'lazy'} />
-                </div>
-                <span className={styles.hChapTag}>{ch.tag}</span>
-              </div>
-
-              {/* Text side */}
-              <div className={styles.hChapText}>
-                <p className={styles.hChapLabel}>{ch.num} — {ch.tag}</p>
-                <h2 className={styles.hChapTitle}>
-                  {ch.title.split('\n').map((line, j) => (
-                    <span key={j} className={styles.hChapTitleLine}>{line}</span>
-                  ))}
-                </h2>
-                <p className={styles.hChapBody}>{ch.body}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Chapter progress indicator */}
-        <div className={styles.hDots}>
-          {CHAPTERS.map((ch, i) => (
-            <div key={i} className={`${styles.hDot} ${active === i ? styles.hDotActive : ''}`}>
-              <span>{ch.tag}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Scroll hint — fades after first interaction */}
-        <div className={`${styles.hScrollHint} ${active > 0 ? styles.hScrollHintHidden : ''}`}>
-          <span className={styles.hScrollHintLine} />
-          <span>Scroll to explore</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Vertical story (mobile fallback) ── */
-function VerticalStory() {
-  return (
-    <section className={styles.vStory}>
-      <div className="container">
-        {CHAPTERS.map((ch, i) => {
-          const { ref: imgRef,  isVisible: imgV  } = useScrollReveal({ threshold: 0.1 });
-          const { ref: txtRef,  isVisible: txtV  } = useScrollReveal({ threshold: 0.1 });
-          return (
-            <div key={ch.num} className={`${styles.vChap} ${i % 2 ? styles.vChapFlip : ''}`}>
-              <span className={styles.vChapNum} aria-hidden="true">{ch.num}</span>
-              <div ref={imgRef} className={`${styles.vChapImg} ${imgV ? styles.vChapImgVis : ''} ${i % 2 ? styles.vChapImgFromRight : styles.vChapImgFromLeft}`}>
-                <img src={ch.img} alt={ch.imgAlt} loading="lazy" />
-                <span className={styles.vChapTag}>{ch.tag}</span>
-              </div>
-              <div ref={txtRef} className={`${styles.vChapTxt} ${txtV ? styles.vChapTxtVis : ''}`}>
-                <p className={styles.vChapLabel}>{ch.num} — {ch.tag}</p>
-                <h2 className={styles.vChapTitle}>{ch.title.replace('\n', ' ')}</h2>
-                <p className={styles.vChapBody}>{ch.body}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
+const GALLERY = [
+  { src: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80', alt: 'Facial treatment' },
+  { src: 'https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=600&q=80', alt: 'Brow shaping' },
+  { src: 'https://images.unsplash.com/photo-1587910234573-d6fc84743bc8?auto=format&fit=crop&w=600&q=80', alt: 'Lash treatment' },
+  { src: 'https://images.unsplash.com/photo-1643684391140-c5056cfd3436?auto=format&fit=crop&w=600&q=80', alt: 'Skin treatment' },
+  { src: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80', alt: 'Skincare' },
+];
 
 export default function About() {
-  const { openBooking } = useBooking();
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth > 900);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  const { ref: statsRef, isVisible: statsVis } = useScrollReveal({ threshold: 0.2 });
-  const { ref: valRef,   isVisible: valVis   } = useScrollReveal({ threshold: 0.1 });
-  const { ref: ctaRef,   isVisible: ctaVis   } = useScrollReveal({ threshold: 0.2 });
+  const { ref: statsRef,     isVisible: statsVis     } = useScrollReveal({ threshold: 0.2  });
+  const { ref: manifestoRef, isVisible: manifestoVis } = useScrollReveal({ threshold: 0.25 });
+  const { ref: founderRef,   isVisible: founderVis   } = useScrollReveal({ threshold: 0.15 });
+  const { ref: processRef,   isVisible: processVis   } = useScrollReveal({ threshold: 0.15 });
+  const { ref: galleryRef,   isVisible: galleryVis   } = useScrollReveal({ threshold: 0.1  });
+  const { ref: valRef,       isVisible: valVis       } = useScrollReveal({ threshold: 0.1  });
+  const { ref: ctaRef,       isVisible: ctaVis       } = useScrollReveal({ threshold: 0.2  });
 
   return (
     <main className={styles.main}>
 
-      {/* ── CINEMATIC BANNER ── */}
+      {/* ── HERO BANNER ── */}
       <section className={styles.banner}>
         <div className={styles.bannerBg}>
           <img
@@ -231,22 +63,18 @@ export default function About() {
             <span>— Our philosophy</span>
           </div>
         </div>
-        {/* Diagonal cut at bottom */}
         <div className={styles.bannerCut} />
       </section>
 
       {/* ── STATS ── */}
-      <section
-        ref={statsRef}
-        className={`${styles.stats} ${statsVis ? styles.statsVis : ''}`}
-      >
+      <section ref={statsRef} className={`${styles.stats} ${statsVis ? styles.statsVis : ''}`}>
         <div className="container">
           <div className={styles.statsGrid}>
             {[
               { val: '5+',   label: 'Years of expertise' },
-              { val: '120+', label: 'Happy clients' },
-              { val: '100%', label: 'By appointment' },
-              { val: '5.0★', label: 'Google rating' },
+              { val: '120+', label: 'Happy clients'       },
+              { val: '100%', label: 'By appointment'      },
+              { val: '5.0★', label: 'Google rating'       },
             ].map((s, i) => (
               <div key={s.label} className={styles.statItem} style={{ '--si': i }}>
                 <span className={styles.statVal}>{s.val}</span>
@@ -257,68 +85,149 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── STORY (horizontal on desktop, vertical on mobile) ── */}
-      {isDesktop
-        ? <HorizontalStory openBooking={openBooking} />
-        : <VerticalStory />
-      }
-
-      {/* ── VALUES ── */}
-      <section
-        ref={valRef}
-        className={`section section--alt ${styles.values} ${valVis ? styles.valVis : ''}`}
-      >
+      {/* ── MANIFESTO ── */}
+      <section ref={manifestoRef} className={`${styles.manifesto} ${manifestoVis ? styles.manifestoVis : ''}`}>
         <div className="container">
-          <div className="text-center" style={{ marginBottom: 56 }}>
-            <p className="section-label">Our Values</p>
-            <h2 className="section-title">What We Stand For</h2>
+          <p className={styles.manifesto__eyebrow}>Our Philosophy</p>
+          <h2 className={styles.manifesto__statement}>
+            We don't follow trends.<br />We follow <em>your skin.</em>
+          </h2>
+          <p className={styles.manifesto__sub}>
+            At Brow Arch, every decision is guided by one thing: what is genuinely best for
+            you. No shortcuts. No one-size-fits-all. Just honest, expert care that listens
+            first and delivers real, lasting results.
+          </p>
+        </div>
+      </section>
+
+      {/* ── FOUNDER ── */}
+      <section ref={founderRef} className={`${styles.founder} ${founderVis ? styles.founderVis : ''}`}>
+        <div className="container">
+          <div className={styles.founder__grid}>
+            <div className={styles.founder__imgWrap}>
+              <img
+                src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=700&q=80"
+                alt="Brow Arch studio"
+                loading="lazy"
+              />
+              <div className={styles.founder__imgAccent} />
+            </div>
+            <div className={styles.founder__text}>
+              <p className="section-label">Meet the Founder</p>
+              <h2 className={styles.founder__name}>Kinza</h2>
+              <p className={styles.founder__bio}>
+                Brow Arch was born from a simple belief — that everyone deserves a beauty
+                experience that feels as good as it looks. Kinza founded the studio with
+                over five years of professional training and a deep passion for skin health,
+                precision technique, and personalised care.
+              </p>
+              <p className={styles.founder__bio}>
+                Based in the heart of Illovo, Sandton, the studio is designed as a private
+                sanctuary. Every appointment is crafted with intention — from the products
+                selected to the aftercare advice given. Nothing is generic. Everything is
+                for you.
+              </p>
+              <blockquote className={styles.founder__quote}>
+                "Every client deserves to leave feeling like the best version of themselves —
+                and my job is to make sure they do."
+              </blockquote>
+            </div>
           </div>
-          <div className={styles.valGrid}>
-            {[
-              { icon: '✦', title: 'Personalised Treatments', text: 'Every treatment is tailored to your skin type, goals, and lifestyle.' },
-              { icon: '✦', title: 'Premium Products',        text: 'Only the highest quality, professional-grade skincare and beauty products.' },
-              { icon: '✦', title: 'Safe & Hygienic',         text: 'Strict hygiene protocols and a clean, professional studio environment.' },
-              { icon: '✦', title: 'Results Driven',          text: 'Focused on real, visible, lasting results — not just a temporary fix.' },
-            ].map((v, i) => (
-              <div key={v.title} className={styles.valCard} style={{ '--vi': i }}>
-                <span className={styles.valIcon}>{v.icon}</span>
-                <h3 className={styles.valTitle}>{v.title}</h3>
-                <p className={styles.valText}>{v.text}</p>
+        </div>
+      </section>
+
+      {/* ── THE EXPERIENCE ── */}
+      <section ref={processRef} className={`${styles.process} ${processVis ? styles.processVis : ''}`}>
+        <div className="container">
+          <div className={styles.process__header}>
+            <p className="section-label">What to Expect</p>
+            <h2 className={styles.process__title}>The Brow Arch Experience</h2>
+          </div>
+          <div className={styles.process__steps}>
+            {PROCESS.map((step, i) => (
+              <div key={step.num} className={styles.process__step} style={{ '--pi': i }}>
+                <div className={styles.process__numWrap}>
+                  <span className={styles.process__num}>{step.num}</span>
+                </div>
+                <div className={styles.process__connector} aria-hidden="true" />
+                <h3 className={styles.process__stepTitle}>{step.title}</h3>
+                <p className={styles.process__stepText}>{step.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CLOSING CTA ── */}
-      <section
-        ref={ctaRef}
-        className={`${styles.closingCta} ${ctaVis ? styles.closingCtaVis : ''}`}
-      >
+      {/* ── GALLERY ── */}
+      <section ref={galleryRef} className={`${styles.gallery} ${galleryVis ? styles.galleryVis : ''}`}>
         <div className="container">
-          <div className={styles.closingInner}>
-            <div className={styles.closingImg}>
-              <img
-                src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=800&q=80"
-                alt="Relaxing spa treatment"
-                loading="lazy"
-              />
-              <div className={styles.closingImgSheen} />
-            </div>
-            <div className={styles.closingText}>
-              <p className="section-label">Begin Your Journey</p>
-              <h2 className={styles.closingTitle}>Book a<br /><em>Consultation</em></h2>
-              <p className={styles.closingBody}>
-                Every Brow Arch journey starts with a personalised consultation — no pressure,
-                just an honest conversation about your skin and your goals. Let's talk.
-              </p>
-              <button className={styles.closingBtn} onClick={openBooking}>
-                Book a Consultation
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-            </div>
+          <div className={styles.gallery__grid}>
+            {GALLERY.map((img, i) => (
+              <div key={i} className={`${styles.gallery__item} ${styles[`gallery__item--${i}`]}`}>
+                <img src={img.src} alt={img.alt} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── VALUES ── */}
+      <section ref={valRef} className={`${styles.values} ${valVis ? styles.valVis : ''}`}>
+        <div className="container">
+          <div className={styles.values__header}>
+            <p className="section-label">Our Values</p>
+            <h2 className={styles.values__title}>What We Stand For</h2>
+          </div>
+          <div className={styles.valList}>
+            {[
+              { num: '01', title: 'Personalised Treatments', text: 'Every treatment is tailored to your skin type, your goals, and your lifestyle. We never apply a one-size-fits-all approach.' },
+              { num: '02', title: 'Premium Products',        text: 'We use only professional-grade, results-focused products selected for their efficacy — nothing is chosen by chance.' },
+              { num: '03', title: 'Safe & Hygienic',         text: 'Strict hygiene protocols and a spotless studio environment ensure every visit is as safe as it is luxurious.' },
+              { num: '04', title: 'Results Driven',          text: 'We measure success by how you look and feel one week after your appointment — not just the moment you leave the chair.' },
+            ].map((v, i) => (
+              <div key={v.num} className={styles.valItem} style={{ '--vi': i }}>
+                <span className={styles.valNum}>{v.num}</span>
+                <div className={styles.valDivider} />
+                <div className={styles.valContent}>
+                  <h3 className={styles.valTitle}>{v.title}</h3>
+                  <p className={styles.valText}>{v.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CLOSING ── */}
+      <section ref={ctaRef} className={`${styles.closing} ${ctaVis ? styles.closingVis : ''}`}>
+        <div className={styles.closing__bg}>
+          <img
+            src="https://images.unsplash.com/photo-1643684391140-c5056cfd3436?auto=format&fit=crop&w=1400&q=70"
+            alt=""
+            aria-hidden="true"
+          />
+          <div className={styles.closing__overlay} />
+        </div>
+        <div className="container">
+          <div className={styles.closing__inner}>
+            <p className={styles.closing__eyebrow}>Begin Your Journey</p>
+            <h2 className={styles.closing__title}>
+              Your most confident self<br />starts <em>here.</em>
+            </h2>
+            <p className={styles.closing__sub}>
+              Located in Illovo, Sandton. Reach out via WhatsApp to book your first appointment.
+            </p>
+            <a
+              href="https://wa.me/27838678709"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.closing__btn}
+            >
+              Chat on WhatsApp
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
           </div>
         </div>
       </section>

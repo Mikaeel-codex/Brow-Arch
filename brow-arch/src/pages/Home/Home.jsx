@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroCanvas from '../../components/HeroCanvas/HeroCanvas';
-import { useBooking } from '../../context/BookingContext';
+import OurStory from '../../components/OurStory/OurStory';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCounter } from '../../hooks/useCounter';
 import { services } from '../../data/services';
@@ -101,7 +101,6 @@ function StatCounter({ target, suffix, label }) {
 
 /* ── Pinned showcase ── */
 function PinnedShowcase() {
-  const { openBooking } = useBooking();
   const wrapperRef = useRef(null);
   const [activeChapter, setActiveChapter] = useState(0);
   const [prevChapter, setPrevChapter] = useState(null);
@@ -150,14 +149,6 @@ function PinnedShowcase() {
             ))}
           </h2>
           <p className={styles.pinBody}>{ch.body}</p>
-          {ch.cta && (
-            <button className={styles.pinCta} onClick={openBooking}>
-              {ch.cta}
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          )}
         </div>
 
         {/* Right — image */}
@@ -190,7 +181,6 @@ function PinnedShowcase() {
 
 /* ── Main component ── */
 export default function Home() {
-  const { openBooking } = useBooking();
   const heroBgRef  = useRef(null);
   const heroTxtRef = useRef(null);
   const popularServices = services.filter(s => s.popular).slice(0, 4);
@@ -254,12 +244,6 @@ export default function Home() {
             Expert treatments. Personalised care. Timeless results.
           </p>
           <div className={styles.heroCtas}>
-            <button className={styles.ctaPrimary} onClick={openBooking}>
-              <span>Book Appointment</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
             <Link to="/services" className={styles.ctaGhost}>Explore Services</Link>
           </div>
         </div>
@@ -344,6 +328,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══ OUR STORY CHAPTERS ════════════════════════════════ */}
+      <OurStory />
+
+      {/* ══ FEATURES STRIP ════════════════════════════════════ */}
+      <section className={styles.features}>
+        <div className="container">
+          <div className={styles.featuresGrid}>
+            {[
+              { icon: '📅', title: 'Easy Online Booking',  text: 'Book your appointment in seconds via WhatsApp or our booking link — available 24/7.' },
+              { icon: '🔒', title: 'Secure & Private',      text: 'Your details are kept strictly confidential. A calm, private space just for you.' },
+              { icon: '⏰', title: 'Appointment Based',     text: 'By appointment only — ensuring you always receive undivided, personalised attention.' },
+            ].map((f) => (
+              <div key={f.title} className={styles.feature}>
+                <span className={styles.feature__icon}>{f.icon}</span>
+                <h4 className={styles.feature__title}>{f.title}</h4>
+                <p className={styles.feature__text}>{f.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══ CTA ════════════════════════════════════════════════ */}
       <section
         ref={ctaRef}
@@ -367,12 +373,6 @@ export default function Home() {
             <p className={styles.ctaSub}>
               Book your appointment today and experience the Brow Arch difference.
             </p>
-            <button className={styles.ctaBtn} onClick={openBooking}>
-              Book Now
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
           </div>
         </div>
       </section>

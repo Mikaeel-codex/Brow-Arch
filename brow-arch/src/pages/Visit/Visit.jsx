@@ -1,36 +1,28 @@
-import Button from '../../components/Button/Button';
-import { useBooking } from '../../context/BookingContext';
 import styles from './Visit.module.css';
 
 const contactInfo = [
   {
     icon: '📍',
     label: 'Address',
-    lines: ['Illovo, Sandton', 'Johannesburg, 2196'],
+    lines: ['Inside Pinnacurl, 16 Fort St', 'Illovo, Sandton, 2196'],
   },
   {
     icon: '📞',
     label: 'Phone',
-    lines: ['+27 00 000 0000'],
-  },
-  {
-    icon: '✉️',
-    label: 'Email',
-    lines: ['hello@browarchbeauty.co.za'],
+    lines: ['+27 83 867 8709'],
   },
   {
     icon: '🕐',
     label: 'Hours',
     lines: [
-      'Monday – Friday: 8:00 – 18:00',
-      'Saturday: 9:00 – 15:00',
-      'Sunday: By appointment only',
+      'Tuesday – Friday: 9:00am – 5:00pm',
+      'Saturday: 9:00am – 2:00pm',
+      'Sunday, Monday & public holidays: Closed',
     ],
   },
 ];
 
 export default function Visit() {
-  const { openBooking } = useBooking();
   return (
     <main className={styles.main}>
       {/* Header */}
@@ -64,11 +56,16 @@ export default function Visit() {
               ))}
             </div>
             <div className={styles.map}>
-              <div className={styles.map__placeholder}>
-                <span>📍</span>
-                <p>Illovo, Sandton</p>
-                <p className={styles.map__sub}>Map placeholder</p>
-              </div>
+              <iframe
+                title="Brow Arch location"
+                src="https://maps.google.com/maps?q=Pinnacurl+Illovo+16+Fort+St+Sandton&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="420"
+                style={{ border: 0, display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
         </div>
@@ -78,14 +75,11 @@ export default function Visit() {
       <section className={styles.cta}>
         <div className="container text-center">
           <h2 className={styles.cta__heading}>
-            Ready to book your appointment?
+            Ready to visit us?
           </h2>
           <p className={styles.cta__sub}>
-            Reach out via WhatsApp or email — we'd love to welcome you to the studio.
+            Reach out via WhatsApp — we'd love to welcome you to the studio.
           </p>
-          <Button variant="primary" size="lg" onClick={openBooking}>
-            Book Appointment
-          </Button>
         </div>
       </section>
     </main>
