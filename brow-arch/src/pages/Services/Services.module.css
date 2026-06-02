@@ -2,68 +2,305 @@
   padding-top: 72px;
 }
 
-.header {
-  background-color: var(--color-bg-section);
-  padding: 80px 0 64px;
-  border-bottom: 1px solid rgba(125, 78, 87, 0.1);
+/* ── Grid section ── */
+.section {
+  padding: 48px 0 64px;
 }
 
-.header__title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 12px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 270px 210px 210px 210px;
+  gap: 12px;
 }
 
-.header__sub {
-  font-size: 1.05rem;
-  color: var(--color-text-light);
-  max-width: 520px;
-}
-
-/* Filters */
-.filters {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-
-.filter {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 8px 20px;
-  border-radius: 100px;
-  border: 1.5px solid rgba(125, 78, 87, 0.2);
-  color: var(--color-text-light);
-  background: transparent;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-
-.filter:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-
-.filter--active {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-white);
-}
-
-/* List */
-.list {
+/* ── Intro text cell ── */
+.intro {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: flex-end;
+  padding: 0 16px 8px 0;
 }
 
-/* CTA */
+.intro__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 10px 0 14px;
+  line-height: 1.1;
+}
+
+.intro__sub {
+  font-size: 0.88rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  max-width: 230px;
+  margin-bottom: 24px;
+}
+
+.intro__line {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* ── Category card ── */
+.card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 22px;
+  cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+}
+
+.card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(36, 18, 14, 0.92) 0%,
+    rgba(36, 18, 14, 0.52) 50%,
+    rgba(36, 18, 14, 0.18) 100%
+  );
+  transition: background 0.35s ease;
+}
+
+.card:hover .card__overlay {
+  background: linear-gradient(
+    to top,
+    rgba(125, 78, 87, 0.88) 0%,
+    rgba(36, 18, 14, 0.48) 55%,
+    rgba(36, 18, 14, 0.12) 100%
+  );
+}
+
+/* top row: number + icon */
+.card__top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.card__num {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.card__num > span:first-child {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.04em;
+}
+
+.card__numLine {
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.card__iconWrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.82);
+  flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover .card__iconWrap {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.card__iconWrap svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* bottom row: name + desc + cta */
+.card__bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.card__name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.card__desc {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.card__cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.67rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+
+.card__arrow {
+  transition: transform 0.25s ease;
+}
+
+.card:hover .card__cta {
+  color: #fff;
+}
+
+.card:hover .card__arrow {
+  transform: translateX(5px);
+}
+
+/* ── Treatments hero ── */
+.treatHero {
+  position: relative;
+  min-height: 320px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+.treatHero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(36, 18, 14, 0.88) 0%, rgba(36, 18, 14, 0.45) 60%, rgba(36, 18, 14, 0.2) 100%);
+}
+
+.treatHero__content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 48px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+  transition: color 0.2s ease;
+}
+
+.backBtn:hover {
+  color: #fff;
+}
+
+.treatHero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.treatHero__note {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  max-width: 560px;
+  border-left: 2px solid rgba(255, 255, 255, 0.4);
+  padding-left: 12px;
+}
+
+/* ── Treatment cards grid ── */
+.treatGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.treatCard {
+  border: 1.5px solid rgba(125, 78, 87, 0.1);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--color-white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.treatCard:hover {
+  border-color: rgba(125, 78, 87, 0.28);
+  box-shadow: 0 4px 16px rgba(125, 78, 87, 0.08);
+}
+
+.treatCard__name {
+  font-size: 0.97rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.treatCard__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.treatCard__duration {
+  font-size: 0.74rem;
+  color: var(--color-text-light);
+  background: var(--color-bg-section);
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.treatCard__price {
+  font-family: var(--font-heading);
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-right: auto;
+}
+
+/* ── CTA ── */
 .cta {
   background-color: var(--color-primary);
   padding: 64px 0;
@@ -91,7 +328,75 @@
   max-width: 400px;
 }
 
-@media (max-width: 768px) {
+/* ── Quote card ── */
+.quoteCard {
+  border-radius: 14px;
+  background-color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 36px;
+  gap: 16px;
+}
+
+.quoteCard__mark {
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  line-height: 0.6;
+  color: rgba(255, 255, 255, 0.2);
+  font-style: italic;
+}
+
+.quoteCard__text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-style: italic;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.quoteCard__sub {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .intro {
+    grid-column: 1 / -1;
+    padding: 0 0 8px;
+    justify-content: flex-start;
+  }
+
+  .intro__sub {
+    max-width: 100%;
+  }
+
+  .treatGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 220px;
+  }
+
+  .treatGrid {
+    grid-template-columns: 1fr;
+  }
+
   .cta__inner {
     flex-direction: column;
     align-items: flex-start;

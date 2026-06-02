@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import Button from '../../components/Button/Button';
-import { useBooking } from '../../context/BookingContext';
-import { reviews } from '../../data/reviews';
+import { useGoogleReviews } from '../../hooks/useGoogleReviews';
+import { reviews as staticReviews } from '../../data/reviews';
 import styles from './Reviews.module.css';
 
-const CARDS_PER_PAGE = 3;
+const LEAVE_REVIEW_URL = 'https://www.google.com/search?q=kinza+hair+%26+beauty&sca_esv=f309c00a8710a5de&biw=1920&bih=945&sxsrf=ANbL-n5ZguCj2ioyGRqrfc8geM9bX6vTGw%3A1780347237262&ei=ZfEdavXWD8GXxc8Pz4PywQw&oq=kinza&gs_lp=Egxnd3Mtd2l6LXNlcnAiBWtpbnphKgIIADIEECMYJzIKECMYgAQYigUYJzIEECMYJzIKEC4YgAQYigUYQzIKEAAYgAQYigUYQzIKEAAYgAQYigUYQzIKEAAYgAQYigUYQzIKEAAYgAQYigUYQzIKEAAYgAQYigUYQzIKEAAYgAQYigUYQ0j9IVDQDFjPFHABeAGQAQCYAfIBoAGfCaoBAzItNbgBAcgBAPgBAZgCBqACvAmoAhDCAgcQIxjqAhgnwgIHEC4Y6gIYJ8ICFhAAGIAEGIoFGEMY5wYY6gIYtALYAQHCAhAQABgDGI8BGOoCGLQC2AEBwgIQEC4YAxiPARjqAhi0AtgBAcICCxAAGIAEGIoFGJECwgITEC4YgAQYigUYQxixAxjHARjRA8ICCBAuGLEDGIAEwgIIEC4YgAQYsQPCAgsQLhiABBjHARjRA8ICCBAAGIAEGLEDwgIREC4YgAQYigUYkQIYxwEYrwHCAg4QLhiABBiKBRiNBhixA8ICBRAAGIAEwgILEAAYgAQYsQMYgwHCAgUQLhiABMICDhAuGIAEGLEDGMcBGNEDmAMG8QVYyH_k7xWWrLoGBggBEAEYAZIHBTEuMC41oAf5VbIHAzItNbgHtQnCBwMyLTbIBxeACAE&sclient=gws-wiz-serp';
 
 export default function Reviews() {
-  const { openBooking } = useBooking();
+  const { reviews: liveReviews, loading } = useGoogleReviews();
+
+  // Use live reviews if loaded, otherwise fall back to static data
+  const reviews = liveReviews.length > 0 ? liveReviews : staticReviews;
+
+  const CARDS_PER_PAGE = 3;
   const [page, setPage] = useState(0);
   const totalPages = Math.ceil(reviews.length / CARDS_PER_PAGE);
   const visible = reviews.slice(page * CARDS_PER_PAGE, page * CARDS_PER_PAGE + CARDS_PER_PAGE);
@@ -30,11 +35,7 @@ export default function Reviews() {
             <span className={styles.rating__score}>5.0</span>
             <span className={styles.rating__count}>based on 120+ Google reviews</span>
           </div>
-          <Button
-            href="https://g.page/r/review"
-            variant="outline"
-            size="sm"
-          >
+          <Button href={LEAVE_REVIEW_URL} variant="outline" size="sm">
             Leave a Review
           </Button>
         </div>
@@ -43,41 +44,34 @@ export default function Reviews() {
       {/* Reviews Grid */}
       <section className="section">
         <div className="container">
-          <div className={styles.grid}>
-            {visible.map((review) => (
-              <ReviewCard key={review.id} review={review} />
-            ))}
-          </div>
-
-          {totalPages > 1 && (
-            <div className={styles.pagination}>
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  className={`${styles.dot} ${i === page ? styles['dot--active'] : ''}`}
-                  onClick={() => setPage(i)}
-                  aria-label={`Page ${i + 1}`}
-                />
-              ))}
+          {loading ? (
+            <div className={styles.loading}>
+              <span className={styles.loading__dot} />
+              <span className={styles.loading__dot} />
+              <span className={styles.loading__dot} />
             </div>
+          ) : (
+            <>
+              <div className={styles.grid}>
+                {visible.map((review) => (
+                  <ReviewCard key={review.id} review={review} />
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className={styles.pagination}>
+                  {Array.from({ length: totalPages }).map((_, i) => (
+                    <button
+                      key={i}
+                      className={`${styles.dot} ${i === page ? styles['dot--active'] : ''}`}
+                      onClick={() => setPage(i)}
+                      aria-label={`Page ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           )}
-        </div>
-      </section>
-
-      {/* CTA Banner */}
-      <section className={styles.cta}>
-        <div className="container">
-          <div className={styles.cta__inner}>
-            <div>
-              <h2 className={styles.cta__heading}>Ready to experience it yourself?</h2>
-              <p className={styles.cta__sub}>
-                Join hundreds of happy clients and book your first appointment today.
-              </p>
-            </div>
-            <Button variant="white" size="lg" onClick={openBooking}>
-              Book Appointment
-            </Button>
-          </div>
         </div>
       </section>
     </main>

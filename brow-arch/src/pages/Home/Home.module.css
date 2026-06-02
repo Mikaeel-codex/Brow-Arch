@@ -609,6 +609,51 @@
   pointer-events: none;
 }
 
+/* ── Features strip ─────────────────────────────── */
+.features {
+  padding: 72px 0;
+  background: var(--color-bg-section);
+  border-top: 1px solid rgba(125, 78, 87, 0.1);
+  border-bottom: 1px solid rgba(125, 78, 87, 0.1);
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.feature {
+  text-align: center;
+}
+
+.feature__icon {
+  font-size: 1.75rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feature__title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.feature__text {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
 /* ══════════════════════════════════════════════════
    CTA
    ══════════════════════════════════════════════════ */
