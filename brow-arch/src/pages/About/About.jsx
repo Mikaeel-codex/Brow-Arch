@@ -43,7 +43,7 @@ export default function About() {
       <section className={styles.banner}>
         <div className={styles.bannerBg}>
           <img
-            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1400&q=60"
+            src="/about-hero.png"
             alt=""
             aria-hidden="true"
           />
