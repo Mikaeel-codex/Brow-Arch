@@ -77,7 +77,7 @@
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 0 24px 160px;
   will-change: transform;
 }
 

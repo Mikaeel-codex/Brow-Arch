@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { BookingProvider } from './context/BookingContext';
 import BookingModal from './components/BookingModal/BookingModal';
 import ScrollProgress from './components/ScrollProgress/ScrollProgress';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <BookingProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <ScrollProgress />
         {/* Film grain overlay */}
         <div className={styles.grain} aria-hidden="true" />

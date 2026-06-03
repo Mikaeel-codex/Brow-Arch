@@ -25,12 +25,15 @@ export default function Navbar() {
 
   return (
     <header className={`${styles.header} ${scrolled ? styles['header--scrolled'] : ''}`}>
-      <div className={`container ${styles.inner}`}>
-        <Link to="/" className={styles.logo} onClick={closeMenu}>
+      <Link to="/" className={styles.logo} onClick={closeMenu}>
+        <img src="/Brow Arch.png" alt="" className={styles.logo__img} aria-hidden="true" />
+        <span className={styles.logo__texts}>
           <span className={styles.logo__name}>BROW ARCH</span>
           <span className={styles.logo__sub}>Beauty Therapy</span>
-        </Link>
+        </span>
+      </Link>
 
+      <div className={`container ${styles.inner}`}>
         <nav className={`${styles.nav} ${menuOpen ? styles['nav--open'] : ''}`}>
           {navLinks.map(({ label, to }) => (
             <NavLink

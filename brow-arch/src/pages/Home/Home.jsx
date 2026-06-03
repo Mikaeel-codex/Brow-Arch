@@ -213,14 +213,18 @@ export default function Home() {
       {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className={styles.hero}>
 
-        {/* Parallax background image */}
+        {/* Parallax background video */}
         <div className={styles.heroBgWrap}>
-          <img
+          <video
             ref={heroBgRef}
             className={styles.heroBg}
-            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=80"
-            alt=""
+            src="/hero page/Therapist_performing_facial_trea…_202606022003.mp4"
+            autoPlay
+            muted
+            playsInline
+            loop
             aria-hidden="true"
+            onTimeUpdate={e => { if (e.target.currentTime >= 6) e.target.currentTime = 0; }}
           />
         </div>
 
