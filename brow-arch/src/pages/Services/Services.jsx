@@ -86,20 +86,19 @@ const FacialsIcon = () => (
   </svg>
 );
 
-const BASE = 'https://images.unsplash.com/photo-';
-const FIT  = '?auto=format&fit=crop&w=900&q=75';
+const BASE = '/Treatment';
 
 const categoryMeta = {
-  'Face Wax':     { num: '01', desc: 'Smooth, gentle waxing for flawless, glowing skin.',      img: `${BASE}1616394584738-fc6e612e71b9${FIT}`, Icon: FaceWaxIcon     },
-  'Legs Wax':     { num: '02', desc: 'Long-lasting smoothness with premium care.',             img: `${BASE}1585945037805-5fd82c2e60b1${FIT}`, Icon: LegsWaxIcon     },
-  'Arms Wax':     { num: '03', desc: 'Silky smooth arms in minutes.',                          img: `${BASE}1519823551278-64ac92734fb1${FIT}`, Icon: ArmsWaxIcon     },
-  'Intimate Wax': { num: '04', desc: 'Comfortable, precise & discreet.',                       img: `${BASE}1643684391140-c5056cfd3436${FIT}`, Icon: IntimateWaxIcon },
-  'Body Wax':     { num: '05', desc: 'Smooth, radiant skin from head to toe.',                 img: `${BASE}1570172619644-dfd03ed5d881${FIT}`, Icon: BodyWaxIcon     },
-  'Threading':    { num: '06', desc: 'Precision shaping for perfect brows.',                   img: `${BASE}1589710751893-f9a6770ad71b${FIT}`, Icon: ThreadingIcon   },
-  'Tinting':      { num: '07', desc: 'Define your brows & lashes with precision tinting.',     img: `${BASE}1587910234573-d6fc84743bc8${FIT}`, Icon: TintingIcon     },
-  'Facials':      { num: '08', desc: 'Rejuvenating facials for a healthy, radiant glow.',      img: `${BASE}1619451427882-6aaaded0cc61${FIT}`, Icon: FacialsIcon    },
-  'Lash Lift':    { num: '09', desc: 'Curl, lift & transform your natural lashes.',            img: `${BASE}1587910234573-d6fc84743bc8${FIT}`, Icon: LashLiftIcon    },
-  'Combo Deals':  { num: '10', desc: 'Save more with our bundled treatment packages.',         img: `${BASE}1570172619644-dfd03ed5d881${FIT}`, Icon: ComboIcon       },
+  'Face Wax':     { num: '01', desc: 'Smooth, gentle waxing for flawless, glowing skin.',      img: `${BASE}/Face%20Wax.jpg`,     Icon: FaceWaxIcon     },
+  'Legs Wax':     { num: '02', desc: 'Long-lasting smoothness with premium care.',             img: `${BASE}/Leg%20Wax.jpg`,      Icon: LegsWaxIcon     },
+  'Arms Wax':     { num: '03', desc: 'Silky smooth arms in minutes.',                          img: `${BASE}/Arm%20Wax.jpg`,      Icon: ArmsWaxIcon     },
+  'Intimate Wax': { num: '04', desc: 'Comfortable, precise & discreet.',                       img: `${BASE}/Intimate%20Wax.jpg`, Icon: IntimateWaxIcon },
+  'Body Wax':     { num: '05', desc: 'Smooth, radiant skin from head to toe.',                 img: `${BASE}/body%20Wax.jpg`,     Icon: BodyWaxIcon     },
+  'Threading':    { num: '06', desc: 'Precision shaping for perfect brows.',                   img: `${BASE}/Threading.jpg`,      Icon: ThreadingIcon   },
+  'Tinting':      { num: '07', desc: 'Define your brows & lashes with precision tinting.',     img: `${BASE}/Tinting.jpg`,        Icon: TintingIcon     },
+  'Facials':      { num: '08', desc: 'Rejuvenating facials for a healthy, radiant glow.',      img: `${BASE}/Facials.jpg`,        Icon: FacialsIcon     },
+  'Lash Lift':    { num: '09', desc: 'Curl, lift & transform your natural lashes.',            img: `${BASE}/Lash%20Lift.jpg`,    Icon: LashLiftIcon    },
+  'Combo Deals':  { num: '10', desc: 'Save more with our bundled treatment packages.',         img: `${BASE}/Combo%20deal.jpeg`,  Icon: ComboIcon       },
 };
 
 export default function Services() {
