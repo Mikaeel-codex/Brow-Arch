@@ -67,7 +67,7 @@ const CHAPTERS = [
     label: 'Facials',
     heading: 'Skin that\nradiates health.',
     body: 'From deep-cleansing hydration masks to targeted chemical peels, every facial is tailored to your skin\'s exact needs — leaving you luminous, restored, and utterly renewed.',
-    img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80',
+    img: '/Chapters/Facials.jpg',
     cta: 'Explore Facials',
   },
   {
@@ -75,15 +75,15 @@ const CHAPTERS = [
     label: 'Brow & Lash',
     heading: 'Definition,\nperfectly placed.',
     body: 'Precision brow shaping and tinting sculpted to your bone structure. Lash lifts that open, lift, and transform — no extensions required.',
-    img: 'https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=900&q=80',
+    img: '/Chapters/brow & Lash.jpg',
     cta: 'Explore Brows',
   },
   {
     num: '03',
-    label: 'Skin Treatments',
+    label: 'Threading',
     heading: 'Advanced care,\nvisible results.',
     body: 'Clinical dermaplaning, resurfacing peels, and full-body ritual massages — each treatment engineered to deliver measurable, lasting transformation.',
-    img: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=900&q=80',
+    img: '/Chapters/threading.jpg',
     cta: 'Explore Treatments',
   },
 ];

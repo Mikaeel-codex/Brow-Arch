@@ -114,10 +114,10 @@ export default function About() {
             </div>
             <div className={styles.founder__text}>
               <p className="section-label">Meet the Founder</p>
-              <h2 className={styles.founder__name}>Kinza</h2>
+              <h2 className={styles.founder__name}>Kasmira</h2>
               <p className={styles.founder__bio}>
                 Brow Arch was born from a simple belief — that everyone deserves a beauty
-                experience that feels as good as it looks. Kinza founded the studio with
+                experience that feels as good as it looks. Kasmira founded the studio with
                 over five years of professional training and a deep passion for skin health,
                 precision technique, and personalised care.
               </p>
