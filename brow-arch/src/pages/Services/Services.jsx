@@ -98,7 +98,7 @@ const categoryMeta = {
   'Tinting':      { num: '07', desc: 'Define your brows & lashes with precision tinting.',     img: `${BASE}/Tinting.jpg`,        Icon: TintingIcon     },
   'Facials':      { num: '08', desc: 'Rejuvenating facials for a healthy, radiant glow.',      img: `${BASE}/Facials.jpg`,        Icon: FacialsIcon     },
   'Lash Lift':    { num: '09', desc: 'Curl, lift & transform your natural lashes.',            img: `${BASE}/Lash%20Lift.jpg`,    Icon: LashLiftIcon    },
-  'Combo Deals':  { num: '10', desc: 'Save more with our bundled treatment packages.',         img: `${BASE}/Combo%20deal.jpeg`,  Icon: ComboIcon       },
+  'Combo Deals':  { num: '10', desc: 'Save more with our bundled treatment packages.',         img: `${BASE}/Combo%20deal.jpeg`,  Icon: ComboIcon       },  
 };
 
 export default function Services() {

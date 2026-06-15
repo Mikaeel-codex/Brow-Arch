@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { useBooking } from '../../context/BookingContext';
 import styles from './Navbar.module.css';
 
 const navLinks = [
@@ -12,6 +13,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { openBooking } = useBooking();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -48,7 +50,20 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
+          <button
+            className={`${styles.nav__cta} ${styles.bookBtn}`}
+            onClick={() => { openBooking(); closeMenu(); }}
+          >
+            Book Now
+          </button>
         </nav>
+
+        <button
+          className={`${styles.bookBtn} ${styles.cta__desktop}`}
+          onClick={() => openBooking()}
+        >
+          Book Now
+        </button>
 
         <button
           className={`${styles.burger} ${menuOpen ? styles['burger--open'] : ''}`}

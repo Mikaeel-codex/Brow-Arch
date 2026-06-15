@@ -31,9 +31,8 @@ export function useGoogleReviews() {
         const data = await res.json();
 
         const mapped = (data.reviews || [])
-          .filter(r => r.rating >= 4)
+          .filter(r => r.rating >= 4 && r.text?.text?.trim().length > 0)
           .sort((a, b) => new Date(b.publishTime) - new Date(a.publishTime))
-          .slice(0, 3)
           .map((r, i) => ({
             id:     i + 1,
             name:   r.authorAttribution?.displayName ?? 'Google Reviewer',

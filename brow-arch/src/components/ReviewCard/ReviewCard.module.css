@@ -24,11 +24,11 @@
 }
 
 .card__text {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.95rem;
   color: var(--color-text);
-  line-height: 1.7;
+  line-height: 1.8;
   flex: 1;
 }
 
@@ -43,19 +43,23 @@
 
 .card__name {
   display: block;
-  font-weight: 500;
-  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--color-text);
+  letter-spacing: 0.02em;
 }
 
 .card__treatment {
   display: block;
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--color-primary-light);
   margin-top: 2px;
 }
 
 .card__date {
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--color-text-light);
   white-space: nowrap;
