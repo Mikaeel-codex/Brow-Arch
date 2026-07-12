@@ -309,7 +309,7 @@ export default function BookingModal() {
               </div>
               <div className={styles.summary__actions}>
                 <a
-                  href={canProceedToWhatsApp ? `https://wa.me/27000000000?text=${buildWhatsAppMessage()}` : undefined}
+                  href={canProceedToWhatsApp ? `https://wa.me/27838678709?text=${buildWhatsAppMessage()}` : undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${styles.summary__book} ${!canProceedToWhatsApp ? styles['summary__book--disabled'] : ''}`}
