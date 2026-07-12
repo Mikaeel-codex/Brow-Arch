@@ -184,6 +184,32 @@
 
 /* Mobile */
 @media (max-width: 900px) {
+  .header {
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  .logo {
+    margin-left: 0;
+    gap: 8px;
+  }
+
+  .logo__img {
+    height: 52px;
+  }
+
+  .logo__name {
+    font-size: 1rem;
+  }
+
+  .logo__sub {
+    font-size: 0.6rem;
+  }
+
+  .inner {
+    gap: 12px;
+  }
+
   .cta__desktop {
     display: none;
   }
